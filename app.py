@@ -24,7 +24,7 @@ load_dotenv()
 
 MONGO_URI = os.getenv(
     "MONGO_URI",
-    "mongodb+srv://greensync:LljysdQhhLFxyG5t@cluster0.y31xe.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+    "db uri"
 )
 DB_NAME = os.getenv("DB_NAME", "SubSync")
 USERS_COLLECTION = os.getenv("USERS_COLLECTIONS", "user_data")
