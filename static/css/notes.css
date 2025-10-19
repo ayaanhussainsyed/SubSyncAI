@@ -1,0 +1,80 @@
+body {
+    font-family: 'Inter', sans-serif;
+    /* Set to a solid, light background */
+    background-color: #F9FAFB; /* Equivalent to Tailwind bg-gray-50 */
+}
+
+/* Custom scrollbar for the notes list and editor area */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #F3F4F6; /* Light gray track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #D1D5DB; /* Medium gray thumb */
+    border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #9CA3AF;
+}
+
+/* Ensure the note content area looks like a document */
+#note-summary-content {
+    /* Solid white background */
+    background-color: white; 
+    box-shadow: none; 
+    min-height: 400px;
+    padding: 2rem;
+    outline: none;
+    cursor: text;
+    line-height: 1.6;
+    font-size: 1rem;
+    border-radius: 16px;
+    /* Added light border for definition */
+    border: 1px solid #E5E7EB; 
+}
+
+/* Sidebar list item hover/active states */
+#notes-list li a {
+    padding: 1rem 1.5rem; 
+    border-left: 3px solid transparent; 
+    transition: background-color 0.2s, border-left-color 0.2s;
+}
+
+#notes-list li a:hover {
+    background-color: #F3F4F6; /* Light hover effect (bg-gray-100) */
+}
+
+/* Active state style (A subtle blue tint) */
+#notes-list li a.active {
+    background-color: #EBF5FF; /* Tailwind blue-50 */
+    border-left-color: #1D4ED8; /* Primary Blue */
+}
+
+#notes-list li a.active div.font-semibold {
+    color: #1D4ED8 !important; /* Primary Blue */
+}
+
+#notes-list li a.active div.text-sm {
+    color: #4B5563 !important; /* Darker gray for contrast */
+}
+
+/* Intro State adjustments */
+#intro-section {
+    display: none; 
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 80vh; 
+    color: #4B5563; 
+}
+
+/* Small responsive safety so sidebar doesn't overlap on very small viewports */
+@media (max-width: 800px) {
+    #sidebar { min-width: 260px !important; }
+}

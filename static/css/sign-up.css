@@ -1,0 +1,108 @@
+body {
+    background: linear-gradient(-45deg, black, #454a4e, #a0a0a6);
+    background-size: 400% 400%;
+    animation: gradientFlow 9s ease infinite;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    color: black;
+    font-family: "Inter", sans-serif;
+  }
+  
+  @keyframes gradientFlow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  
+  .container {
+      background-color: white;
+      border: 0.5 solid black;
+      height: fit-content;
+      padding: 25px;
+      min-height: 220px;
+      width: 500px;
+      display: block;
+      margin: auto;
+      border-radius: 6px;
+      font-family: "Inter", sans-serif;
+      animation: popIn 0.8s ease-out;
+    }
+    h3 {
+      font-weight: bolder;
+    }
+    h1 {
+      text-align: center;
+      font-family: "Zilla Slab", sans-serif;
+    }
+    .input-group-text {
+      background-color: white;
+      border-left: none;
+    }
+    .input-group .form-control {
+      border-right: none;
+    }
+  
+    @media (max-width: 768px) {
+      .container {
+        width: 90%;
+        padding: 15px;
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .container {
+        width: 95%;
+        padding: 10px;
+      }
+  
+      h3 {
+        font-size: 1.2rem;
+      }
+    }
+  
+    @keyframes popIn {
+      0% {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  
+    .btn-dark {
+      position: relative;
+      padding-right: 25px;
+    }
+  
+    .btn-dark svg {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+  
+    .btn-dark:hover svg {
+      opacity: 1;
+      right: 5px;
+    }
+    a.signup-link svg {
+    transition: transform 0.3s ease;
+  }
+  
+  a.signup-link:hover svg {
+    transform: translateX(4px);
+  }
+  
+  

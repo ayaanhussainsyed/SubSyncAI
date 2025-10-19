@@ -1,0 +1,427 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+}
+.head h1 {
+    text-align: center;
+    font-size: 59px;
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, 0.2) 0%, white 25%, rgba(255, 255, 255, 0.2) 50%, white 75%, rgba(255, 255, 255, 0.2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    background-size: 200% 100%;
+    animation: liveTextGradient 3s linear 1 forwards;
+}
+@keyframes liveTextGradient {
+    0% { background-position: 100% 0; }
+    100% { background-position: 0% 0; }
+}
+nav {
+    color: white;
+}
+.file-input-container {
+    max-width: 500px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.file-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+    background-color: #2a2a2a;
+    color: white;
+}
+/* --- UPDATED LIQUID GLASS & ROUNDED BUTTONS --- */
+.process-button {
+    padding: 10px 20px;
+    /* Liquid Glass BG: Semi-transparent white with blur */
+    background-color: rgba(255, 255, 255, 0.15); 
+    backdrop-filter: blur(5px);
+    color: white; /* Change text color to white for contrast */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Subtle white border */
+    border-radius: 50px; /* Highly rounded corners */
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease; 
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center content in button */
+    gap: 8px;
+}
+.process-button:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.3); /* Brighter on hover */
+}
+.process-button:disabled {
+    background-color: rgba(255, 255, 255, 0.05); /* Very faint on disabled */
+    backdrop-filter: none; 
+    border-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    color: #aaa;
+}
+/* NEW: Study Mode Button Specific Style */
+.study-button {
+    background-color: rgba(70, 130, 180, 0.2);
+    border: 1px solid #4682b4;
+    color: #4682b4;
+}
+.study-button:hover:not(:disabled) {
+    background-color: rgba(70, 130, 180, 0.35);
+    color: white;
+}
+/* ----------------------------------------------- */
+.head p {
+    text-align: center;
+    color: #949495;
+    position: relative;
+    z-index: 3;
+}
+/* Result Area Styles */
+#media-player-area {
+    margin-top: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+#media-player {
+    width: 100%;
+    max-height: 450px;
+    background-color: black;
+    border-radius: 8px;
+}
+/* --- UPDATED LIQUID GLASS FOR TRANSCRIPT AREA --- */
+#transcript-area {
+    margin-top: 20px;
+    padding: 20px;
+    /* Liquid Glass Effect */
+    background-color: rgba(26, 26, 26, 0.5); /* Semi-transparent #1a1a1a */
+    backdrop-filter: blur(10px); 
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border for definition */
+    border-radius: 8px;
+    text-align: left;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+/* ----------------------------------------------- */
+
+#transcript-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+#transcript-area h3 {
+    color: #fff;
+    margin-bottom: 0; 
+}
+
+/* Group for Analyze/Download buttons */
+#action-buttons {
+    display: flex;
+    gap: 10px; 
+}
+
+/* --- UPDATED LIQUID GLASS & ROUNDED FOR ANALYZE/DOWNLOAD BUTTONS --- */
+.analyze-button {
+    padding: 8px 15px;
+    background-color: rgba(0, 255, 115, 0.2); /* Liquid Glass: Neon green tint */
+    backdrop-filter: blur(5px);
+    color: #00ff73; /* Keep text color neon green for analyze */
+    border: 1px solid #00ff73; /* Add border for definition */
+    border-radius: 50px; /* Highly rounded corners */
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease; 
+}
+.analyze-button:hover {
+    background-color: rgba(0, 255, 115, 0.35); /* Brighter neon green tint on hover */
+}
+
+.download-button {
+    padding: 8px 15px;
+    background-color: rgba(70, 130, 180, 0.2); /* Liquid Glass: Steel blue tint */
+    backdrop-filter: blur(5px);
+    color: #4682b4; /* Keep text color steel blue for download/save */
+    border: 1px solid #4682b4; /* Add border for definition */
+    border-radius: 50px; /* Highly rounded corners */
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.download-button:hover {
+    background-color: rgba(70, 130, 180, 0.35); /* Brighter steel blue tint on hover */
+}
+.download-button:disabled, .analyze-button:disabled {
+    background-color: rgba(255, 255, 255, 0.05); /* Very faint on disabled */
+    backdrop-filter: none;
+    border-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    color: #aaa;
+}
+/* NEW: Semantic Search Button Style - Using a different color for distinction */
+.search-button {
+    padding: 8px 15px;
+    background-color: rgba(255, 165, 0, 0.2); /* Liquid Glass: Orange tint */
+    backdrop-filter: blur(5px);
+    color: #ffa500; /* Orange text color */
+    border: 1px solid #ffa500; /* Orange border */
+    border-radius: 50px; /* Highly rounded corners */
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.search-button:hover {
+    background-color: rgba(255, 165, 0, 0.35); /* Brighter orange tint on hover */
+}
+.search-button:disabled {
+    background-color: rgba(255, 255, 255, 0.05); /* Very faint on disabled */
+    backdrop-filter: none;
+    border-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    color: #aaa;
+}
+/* NEW: Cognitive Map Button Style (Using a purple/magenta tint) */
+.map-button {
+    padding: 8px 15px;
+    background-color: rgba(138, 43, 226, 0.2); /* Liquid Glass: BlueViolet tint */
+    backdrop-filter: blur(5px);
+    color: #8a2be2; /* BlueViolet text color */
+    border: 1px solid #8a2be2; /* BlueViolet border */
+    border-radius: 50px; /* Highly rounded corners */
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.map-button:hover:not(:disabled) {
+    background-color: rgba(138, 43, 226, 0.35); /* Brighter tint on hover */
+    color: white;
+}
+.map-button:disabled {
+    background-color: rgba(255, 255, 255, 0.05);
+    backdrop-filter: none;
+    border-color: rgba(255, 255, 255, 0.1);
+    cursor: not-allowed;
+    color: #aaa;
+}
+/* ----------------------------------------------- */
+
+/* NEW: Modal styles (Copying emotion modal base styles) */
+.emotion-modal-content, .search-modal-content {
+    background-color: rgba(26, 26, 26, 0.7); /* Semi-transparent */
+    backdrop-filter: blur(15px);
+    color: white;
+    border: 1px solid rgba(0, 255, 115, 0.5); /* Semi-transparent border */
+    border-radius: 15px; /* Slightly more rounded */
+}
+.emotion-modal-header, .emotion-modal-footer, .search-modal-header, .search-modal-footer {
+    border-bottom: none;
+    border-top: none;
+}
+.emotion-modal-title {
+    color: #00ff73;
+}
+.search-modal-title {
+    color: #ffa500; /* Orange title for search modal */
+}
+#emotionChartContainer {
+    height: 300px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+/* Transcript Content Styles for synchronization and EMOTION COLORING */
+#transcript-content {
+    color: #e0e0e0; /* Slightly lesser tone of white */
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 1.1em;
+    line-height: 1.8;
+}
+.time-segment {
+    cursor: pointer;
+    transition: color 0.1s;
+    display: block; 
+    margin-bottom: 8px; 
+    color: #e0e0e0; /* Slightly lesser tone of white */
+}
+.time-segment:hover {
+    color: #fff;
+}
+.highlighted-segment {
+    color: white !important; /* White highlight */
+    font-weight: bold;
+    transition: color 0.1s;
+}
+
+/* --- EMOTION COLORS --- */
+.emotion-LOVE { color: #ff69b4; }    
+.emotion-SURPRISE { color: #ffff00; } 
+.emotion-FEAR { color: #800080; }   
+.emotion-JOY { color: #ffa500; }    
+.emotion-SADNESS { color: #4682b4; } 
+.emotion-ANGER { color: #ff0000; }  
+.emotion-NEUTRAL { color: #e0e0e0; }
+/* --- END EMOTION COLORS --- */
+
+.time-segment strong {
+    color: #00ff73; /* Speaker label color (Kept green for speaker identification) */
+    margin-right: 5px;
+}
+
+#loading-indicator {
+    text-align: center;
+    margin-top: 20px;
+    display: none;
+    color: #949495;
+}
+#file-error-message {
+    color: #ff5555;
+    display: none;
+    margin-top: -10px;
+}
+
+/* NEW: Tag Style */
+.tag {
+    background-color: rgba(70, 130, 180, 0.5); /* Blue-tinted liquid glass for tags */
+    backdrop-filter: blur(3px);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 600;
+}
+/* Semantic Search Results Styling */
+.search-result-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.search-result-item:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.search-result-item .result-timestamp {
+    font-weight: bold;
+    color: #ffa500; /* Orange for search timestamp */
+    margin-right: 10px;
+}
+
+/* ----------------- START: IDRAK ADDITIONS (do not remove) ----------------- */
+
+/* Idrak button (fixed bottom-left) - liquid glass matching look */
+#idrak-button {
+    position: fixed;
+    left: 18px;
+    bottom: 18px;
+    z-index: 2000;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background-color: rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+#idrak-button .dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background: linear-gradient(45deg,#00ff73,#8a2be2);
+    box-shadow: 0 0 8px rgba(138,43,226,0.35);
+}
+
+/* Idrak Chat modal specifics */
+.idrak-modal-content {
+    background-color: rgba(12,12,12,0.92);
+    color: white;
+    border-radius: 12px;
+    border: 1px solid rgba(0,255,115,0.12);
+}
+.idrak-chat-window {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: rgba(20,20,20,0.6);
+    border: 1px solid rgba(255,255,255,0.03);
+}
+.idrak-message {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 8px;
+}
+.idrak-message.user .bubble {
+    margin-left: auto;
+    background-color: rgba(0,255,115,0.08);
+    border: 1px solid rgba(0,255,115,0.12);
+    color: #eafff1;
+}
+.idrak-message.ai .bubble {
+    margin-right: auto;
+    background-color: rgba(138,43,226,0.06);
+    border: 1px solid rgba(138,43,226,0.12);
+    color: #f0e9ff;
+}
+.idrak-message .bubble {
+    padding: 8px 12px;
+    border-radius: 12px;
+    max-width: 78%;
+    font-size: 0.95em;
+    line-height: 1.35;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+.idrak-controls {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    margin-top:10px;
+}
+.idrak-small {
+    font-size: 0.85em;
+    color: #cfcfcf;
+}
+.idrak-timestamp-btn {
+    padding: 6px 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    background-color: rgba(255,255,255,0.02);
+    cursor: pointer;
+}
+#transcript-area {
+background-color: rgba(255,255,255,0.06) !important; /* very light white tint */
+backdrop-filter: blur(12px) saturate(120%) !important; /* stronger blur */
+-webkit-backdrop-filter: blur(12px) saturate(120%) !important;
+border: 1px solid rgba(255,255,255,0.12) !important;
+box-shadow: 0 6px 30px rgba(0,0,0,0.4);
+}

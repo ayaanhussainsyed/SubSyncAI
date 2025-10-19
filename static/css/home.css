@@ -1,0 +1,164 @@
+body{
+    background-color: black;
+    color:white;
+    font-family: 'Inter',sans-serif;
+    animation: fadeIn 1.5s ease-out forwards;
+    opacity: 0;
+    overflow: hidden; /* Prevent scrollbar from particle movement */
+    position: relative; /* For positioning pseudo-elements */
+}
+
+/* Global Background Particles - Layer 1 (Slower, larger) */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 15% 25%, rgba(255, 255, 255, 0.25) 1.5px, transparent 3px),
+        radial-gradient(circle at 65% 55%, rgba(255, 255, 255, 0.2) 1.5px, transparent 3px),
+        radial-gradient(circle at 35% 85%, rgba(255, 255, 255, 0.3) 1.5px, transparent 3px),
+        radial-gradient(circle at 85% 15%, rgba(255, 255, 255, 0.15) 1.5px, transparent 3px);
+    background-repeat: repeat;
+    background-size: 500px 500px; /* Larger background size for more sparse, non-uniform look */
+    animation: floatParticlesSlow 60s infinite linear; /* Slower movement */
+    opacity: 0.8;
+    z-index: 0; /* Behind other content */
+    pointer-events: none;
+}
+
+/* Global Background Particles - Layer 2 (Faster, smaller, different direction) */
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 10% 90%, rgba(255, 255, 255, 0.15) 1px, transparent 2px),
+        radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.1) 1px, transparent 2px),
+        radial-gradient(circle at 20% 40%, rgba(255, 255, 255, 0.2) 1px, transparent 2px),
+        radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.08) 1px, transparent 2px);
+    background-repeat: repeat;
+    background-size: 300px 300px; /* Different density */
+    animation: floatParticlesFast 40s infinite linear; /* Faster movement, different direction */
+    opacity: 0.7;
+    z-index: 0; /* Behind other content */
+    pointer-events: none;
+}
+
+nav{
+    color:white;
+    position: relative;
+    z-index: 4; /* Ensure nav is above hero elements */
+}
+.hero{
+    text-align: center;
+    position: relative;
+    z-index: 3; /* Ensure hero content is above background particles */
+}
+.hero h1{
+    font-weight: 600;
+    font-size:70px;
+    background-image: linear-gradient(to bottom, white 0%, rgba(255, 255, 255, 0.15) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+
+    position: relative;
+    z-index: 3;
+    text-shadow:
+        0 0 5px rgba(255, 255, 255, 0.2),
+        0 0 10px rgba(255, 255, 255, 0.05);
+    font-family: 'Geist',sans-serif;
+    font-size: 92px;
+}
+.hero p{
+    text-align: center;
+    color:#949495;
+    position: relative;
+    z-index: 3;
+}
+.getstarted{
+    background-color: white;
+    color:black;
+    border:none;
+    width:210px;
+    height:40px;
+    display: block;
+    margin: auto;
+    border-radius: 20px; /* Permanent round corners */
+    transition: background-color 0.3s ease-out, color 0.3s ease-out; /* Smooth transition for hover */
+    position: relative;
+    z-index: 3;
+}
+.getstarted:hover {
+    background-color: black; /* Change background to black on hover */
+    color:white; /* Change text color to white on hover */
+}
+.getstarted:hover svg {
+    fill: white; /* Change SVG color to white on hover */
+    animation: moveRight 0.5s forwards;
+}
+@keyframes moveRight {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Light effect over hero */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: -300px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 1000px;
+    height: 700px;
+
+    background: radial-gradient(
+        ellipse at 50% 0%,
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 255, 255, 0.35) 30%,
+        rgba(255, 255, 255, 0.08) 60%,
+        rgba(255, 255, 255, 0) 90%
+    );
+
+    filter: blur(150px);
+    animation: lightCastDown 2s ease-out 1s forwards;
+    opacity: 0;
+    z-index: 1; /* Above general background particles */
+    pointer-events: none;
+}
+
+/* Keyframes for animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes lightCastDown {
+    from { opacity: 0; transform: translateX(-50%) translateY(-50px); }
+    to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+@keyframes floatParticlesSlow {
+    from { background-position: 0 0; }
+    to { background-position: 800px 800px; } /* Moves diagonally down-right */
+}
+
+@keyframes floatParticlesFast {
+    from { background-position: 0 0; }
+    to { background-position: -600px 600px; } /* Moves diagonally up-right */
+}

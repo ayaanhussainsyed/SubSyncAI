@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" xintegrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script> 
+    <title>CaptionAI | SubSync</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/home" style="color:white;">SubSync</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="/home" style="color:white;">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/caption-ai" style="color:rgb(146, 144, 144);">CaptionAI</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/notes" style="color:rgb(146, 144, 144);">Notes</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout" style="color:rgb(146, 144, 144);">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <br><br><br><br><br>
+    <div class="head">
+        <h1>Transcribe and Synchronize.</h1>
+        <p>Upload an audio or video file to generate a time-synchronized transcript with Speaker Diarization and Emotion Analysis.</p>
+        <br><br>
+        
+        <div class="file-input-container">
+            <input type="file" id="audioFileInput" class="file-input" accept="audio/*,video/*">
+            <p id="file-error-message">Please select a file.</p>
+            
+            <div style="display: flex; gap: 15px; width: 100%;">
+                <button id="captionModeButton" class="process-button" onclick="uploadAndProcessAudio(true)" style="flex: 1;" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
+                        <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814z"/>
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1z"/>
+                    </svg>
+                    Caption Mode
+                </button>
+                <button id="studyModeButton" class="process-button study-button" onclick="processStudyMode()" style="flex: 1;" disabled>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
+                        <path d="M1 2.828c.885-.37 2.154-.71 3.384-.943.58-.112 1.026-.234 1.258-.334.31-.132.583-.295.787-.456.237-.189.288-.27.348-.37.264-.474.34-.78.34-.78C11.5 2.15 11.5 8.1 11.5 8.1c0 .47-.282.686-.443.892-.294.37-.53.567-.797.749-.234.156-.498.318-.737.491-.255.187-.468.36-.61.479-.11.088-.25.203-.393.303-.456.326-.89.577-1.428.847-.393.197-.83.33-.872.348v-.386c.042-.018.479-.151.872-.348.538-.27.972-.52 1.428-.847.143-.1.283-.215.393-.303.142-.119.355-.292.61-.479.239-.173.503-.335.737-.491.267-.182.503-.38.797-.748.16-.206.443-.422.443-.893 0 0 0-5.95 0-5.95 0-.094-.038-.178-.052-.224-.048-.158-.135-.29-.27-.41-.127-.116-.299-.24-.523-.342-.232-.1-.678-.222-1.258-.334-1.23-.233-2.5-.573-3.384-.943v6.52c0 .248-.1.488-.28.66-.18.17-.42.26-.66.26h6.8c.24 0 .48-.09.66-.26.18-.17.28-.412.28-.66V8.1c0 0-.001-5.95 0-5.95.06.1.11.181.348.37.204.16.477.324.787.456.232.1.678.222 1.258.334 1.23.233 2.5.573 3.384.943v6.52c0 .248-.1.488-.28.66-.18.17-.42.26-.66.26H3.94c-.24 0-.48-.09-.66-.26-.18-.17-.28-.412-.28-.66V2.828zM4.094 8.1c0 0 0 0 0 0v6.52c0 .248-.1.488-.28.66-.18.17-.42.26-.66.26H3.94c-.24 0-.48-.09-.66-.26-.18-.17-.28-.412-.28-.66V8.1c0 0 0 0 0 0z"/>
+                    </svg>
+                    Study Mode
+                </button>
+            </div>
+        </div>
+        
+        <div id="loading-indicator">Processing your media...</div>
+        
+        <div id="media-player-area">
+            <video id="media-player" controls preload="metadata"></video>
+        </div>
+
+        <div id="transcript-area">
+            <div id="transcript-header">
+                <h3>Transcript:</h3>
+                <div id="action-buttons">
+                    <button id="downloadSrtButton" class="download-button" onclick="downloadSrtServer()" disabled>Download .srt</button>
+                    <button id="viewStudyButton" class="analyze-button" onclick="openStudyNotesModal()" disabled>View Study Notes</button>
+                    <button id="semanticSearchButton" class="search-button" onclick="openSemanticSearchModal()" disabled>Semantic Search</button>
+                    <button id="analyzeButton" class="analyze-button" onclick="analyzeEmotion()">Analyze Emotion</button>
+                </div>
+            </div>
+            <p id="transcript-content"></p>
+        </div>
+        
+    </div>
+
+    <div class="modal fade" id="emotionModal" tabindex="-1" aria-labelledby="emotionModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content emotion-modal-content">
+                <div class="modal-header emotion-modal-header">
+                    <h5 class="modal-title emotion-modal-title" id="emotionModalLabel">Emotion Analysis Chart</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="text-center mb-3">
+                        <p class="fs-5 mb-1">Overall Emotion (Most Frequent):</p>
+                        <p id="overallEmotionResult" class="fs-3 fw-bold text-uppercase" style="color:#00ff73;">Loading...</p>
+                    </div>
+                    <hr style="border-color:#333;">
+                    <h6 class="text-center text-secondary mb-3">Emotion Over Time</h6>
+                    <div id="emotionChartContainer">
+                        <canvas id="emotionChart"></canvas>
+                    </div>
+                </div>
+                <div class="modal-footer emotion-modal-footer">
+                    <button type="button" class="btn analyze-button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="semanticSearchModal" tabindex="-1" aria-labelledby="semanticSearchModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content search-modal-content">
+                <div class="modal-header search-modal-header">
+                    <h5 class="modal-title search-modal-title" id="semanticSearchModalLabel">Semantic Search</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter a keyword or phrase to find the most relevant moment in the transcript:</p>
+                    <div class="input-group mb-3">
+                        <input type="text" id="searchInput" class="form-control" placeholder="E.g., 'machine learning' or 'project completion'" aria-label="Search keyword" style="background-color: #2a2a2a; color: white; border: 1px solid #444;">
+                        <button class="btn search-button" type="button" id="executeSearchButton" onclick="executeSemanticSearch()">
+                            <span id="searchSpinner" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true" style="display:none;"></span>
+                            Search
+                        </button>
+                    </div>
+                    <div id="searchResultsArea">
+                        <small class="text-secondary">Click on a result to jump the video to that moment.</small>
+                    </div>
+                </div>
+                <div class="modal-footer search-modal-footer">
+                    <button type="button" class="btn search-button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="studyModal" tabindex="-1" aria-labelledby="studyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content emotion-modal-content">
+                <div class="modal-header emotion-modal-header">
+                    <h5 class="modal-title emotion-modal-title" id="studyModalLabel">Study Notes & Multimodal Analysis</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" style="filter: invert(1);"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="studyNotesArea">
+                        <h5 class="text-secondary">Summary (Visual & Audio-Aware)</h5>
+                        <p id="studySummaryResult" class="fs-6 text-white border-bottom border-secondary pb-3">
+                            <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                            Summary loading... Please click 'Run Study Mode' first.
+                        </p>
+
+                        <h5 class="mt-4 text-secondary">Key Topics / Tags</h5>
+                        <div id="studyTagsResult" class="d-flex flex-wrap gap-2">
+                            </div>
+                        
+                        <div id="save-feedback" class="mt-4 text-center">
+                            </div>
+                    </div>
+
+                    <div id="cognitiveMapArea" style="display: none; padding: 10px; border-radius: 5px; background-color: rgba(255, 255, 255, 0.05); min-height: 400px;">
+                        <h5 class="text-info mb-3">Generated Cognitive Map</h5>
+                        <div id="mapVisualization">
+                            <p class="text-secondary">Click 'Cognitive Map' to generate the knowledge graph.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer emotion-modal-footer">
+                    <button id="cognitiveMapButton" class="btn map-button" onclick="openCognitiveMap()" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-diagram-3" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M11.5 6a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5m-.5 2h-1A.5.5 0 0 0 10 8.5v3.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5V8.5A.5.5 0 0 0 7 8H6a.5.5 0 0 0-.5.5v2.5h-1V9a.5.5 0 0 0-1 0v2.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5V10.5a.5.5 0 0 1 1 0v.5h1v-2h-1A.5.5 0 0 0 8 8.5v1h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0-.5-.5v-1a.5.5 0 0 0-.5-.5h-2A.5.5 0 0 0 0 8.5v3.5a.5.5 0 0 0 .5.5h15a.5.5 0 0 0 .5-.5V8.5a.5.5 0 0 0-.5-.5h-2a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1v-1a.5.5 0 0 0-.5-.5H13a.5.5 0 0 0-.5.5v2.5h-1V8.5a.5.5 0 0 0-.5-.5H11.5zM2.5 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5m9 6a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5m-9 0a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                        </svg>
+                        Cognitive Map
+                    </button>
+                    <button id="saveNotesButton" class="btn download-button" onclick="saveStudyNotes()" disabled>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                            <path d="M.5 1a.5.5 0 0 0 0 1h.5v12a.5.5 0 0 0 1 0V2h12a.5.5 0 0 0 0-1H.5z"/>
+                            <path d="M14.5 3a.5.5 0 0 1 .5.5v10a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h13zM14 4H3a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1z"/>
+                        </svg>
+                        Save Notes
+                    </button>
+                    <button type="button" class="btn analyze-button" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" xintegrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" xintegrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+</body>
+</html>

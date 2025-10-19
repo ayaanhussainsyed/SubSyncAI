@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Using Inter as the primary font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>NeuralVault | SubSync</title>
+</head>
+<body>
+
+    <!-- Removed absolute positioning classes from body wrapper -->
+    <div class="relative h-screen font-inter p-6">
+        
+        <!-- Exit Button removed from here -->
+
+        <div class="flex h-full">
+            <!-- Sidebar - Flex column layout allows the Exit button to push to the bottom -->
+            <!-- UPDATED: widened sidebar from 300px -> 360px and added min-width so it doesn't collapse -->
+            <aside id="sidebar" class="w-[360px] min-w-[320px] flex flex-col bg-white rounded-2xl shadow-xl mr-6 h-full overflow-hidden">
+                <!-- Sidebar Header/Search -->
+                <div class="p-5 border-b border-solid border-gray-200">
+                    <h2 class="text-2xl font-extrabold text-gray-900 flex items-center">
+                       <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-5a3 3 0 00-3-3H8a3 3 0 00-3 3v5h5M12 10V4"></path></svg>
+                       NeuralVault
+                    </h2>
+                    <div class="mt-5 relative">
+                        <!-- increased left padding so icon + text have more room -->
+                        <input type="text" id="sidebar-search" placeholder="Search notes..." class="w-full p-3 pl-12 border border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 transition duration-150 ease-in-out bg-white placeholder-gray-500 text-gray-800">
+                        <svg class="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                </div>
+                
+                <!-- Notes List - flex-grow ensures this section takes up all available space -->
+                <div class="flex-grow overflow-y-auto custom-scrollbar divide-y divide-gray-200">
+                    <ul id="notes-list" class="list-none p-0 m-0">
+                        <!-- Notes will be injected here by JavaScript -->
+                        <li id="loading-message" class="p-4 text-center text-gray-600 hidden">Loading notes...</li>
+                        <li id="empty-message" class="p-4 text-center text-gray-600 hidden">No notes saved yet.</li>
+                    </ul>
+                </div>
+                
+                <!-- Exit Button - Fixed to the bottom of the sidebar -->
+                <div class="p-4 border-t border-gray-200">
+                   <a href="/" style="text-decoration: none;">
+                    <button id="exit-button" class="w-full py-2 text-sm font-semibold text-red-600 rounded-lg hover:bg-red-50 transition duration-150 border border-transparent hover:border-red-200" onclick="handleExit()">
+                        Exit Vault
+                    </button></a>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <main class="flex-grow flex flex-col overflow-y-auto custom-scrollbar">
+                
+                <!-- Intro State -->
+                <div id="intro-section" class="flex-grow bg-white rounded-2xl shadow-xl p-8 flex">
+                   <div class="flex flex-col items-center justify-center text-center w-full">
+                       <svg class="w-16 h-16 text-blue-500 mb-4 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                       <h3 class="text-3xl font-bold text-gray-800">Welcome to Your Neural Vault</h3>
+                       <p class="mt-3 text-lg text-gray-600 max-w-lg">Select a note from the left sidebar to view or edit its content. All changes are saved automatically.</p>
+                   </div>
+                </div>
+
+                <!-- Note Detail View (Hidden until a note is selected) -->
+                <div id="note-detail-view" class="flex-grow flex flex-col hidden">
+                    
+                    <!-- Note Title -->
+                    <input type="text" id="note-title" class="w-full text-5xl font-extrabold text-gray-900 bg-transparent border-0 focus:outline-none mb-6 p-0" placeholder="Untitled Note" />
+                    
+                    <!-- Metadata and Tags -->
+                    <div class="flex flex-wrap items-center justify-between text-sm text-gray-500 mb-6">
+                        <span id="note-creation-date" class="text-sm font-medium text-gray-600"></span>
+                        <div id="note-tags" class="flex flex-wrap gap-2 mt-2 sm:mt-0">
+                            <!-- Tags will be injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Formatting Toolbar -->
+                    <div id="formatting-toolbar" class="flex gap-1 p-2 bg-white shadow-lg mb-6 sticky top-0 z-10 rounded-xl border border-gray-200">
+                        <button data-command="bold" class="p-2 rounded-lg hover:bg-gray-100 font-bold text-gray-700 transition duration-150" title="Bold">B</button>
+                        <button data-command="italic" class="p-2 rounded-lg hover:bg-gray-100 italic text-gray-700 transition duration-150" title="Italic">I</button>
+                        <button data-command="underline" class="p-2 rounded-lg hover:bg-gray-100 underline text-gray-700 transition duration-150" title="Underline">U</button>
+                        <div class="border-l border-gray-300 mx-2"></div>
+                        <button data-command="insertUnorderedList" class="p-2 rounded-lg hover:bg-gray-100 text-gray-700 transition duration-150" title="Bullet List">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path><circle cx="6" cy="6" r="1.5" /><circle cx="6" cy="10" r="1.5" /><circle cx="6" cy="14" r="1.5" /><circle cx="6" cy="18" r="1.5" /></svg>
+                        </button>
+                        <button data-command="insertOrderedList" class="p-2 rounded-lg hover:bg-gray-100 text-gray-700 transition duration-150" title="Numbered List">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path><text x="3.5" y="8" class="text-xs" fill="currentColor">1.</text><text x="3.5" y="12" class="text-xs" fill="currentColor">2.</text><text x="3.5" y="16" class="text-xs" fill="currentColor">3.</text><text x="3.5" y="20" class="text-xs" fill="currentColor">4.</text></svg>
+                        </button>
+                    </div>
+
+                    <!-- Note Content/Summary Editor -->
+                    <div id="note-summary-content" contenteditable="true" class="flex-grow text-gray-800 custom-scrollbar focus:ring-2 focus:ring-blue-500/50 transition duration-150 ease-in-out shadow-lg">
+                        <!-- Note content will be loaded here -->
+                    </div>
+
+                    <!-- Save/Status Indicator -->
+                    <div class="mt-4 text-right">
+                       <span id="save-status" class="text-sm text-gray-600"></span>
+                    </div>
+                    
+                </div>
+
+            </main>
+        </div>
+    </div>
+    
+</body>
+</html>
