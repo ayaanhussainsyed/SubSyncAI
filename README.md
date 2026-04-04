@@ -1,84 +1,103 @@
-🧠 SubSync — The Emotionally Intelligent AI Subtitle & Video Insight Engine
-SubSync transforms ordinary videos into intelligent, interactive learning companions.
-Built for educators, researchers, and lifelong learners, it goes far beyond traditional captioning — combining AI-driven transcription, emotional understanding, semantic search, and cognitive video summarization into a single, elegant platform.
-🚀 Features
-🎬 1. Auto-Subtitle Generation
-Upload any .mp4, .webm, or .mov file and instantly receive:
-Accurate subtitles with timestamps (≤12% WER in clear audio)
-Downloadable .srt file
-Context-preserving transcript view
-🧠 Powered by fine-tuned OpenAI Whisper for precision speech recognition.
-💓 2. Emotional Analysis
-SubSync doesn’t just transcribe — it feels.
-A trained Logistic Regression ML model detects emotional tone throughout the video, allowing viewers to understand the speaker’s affective state in real time.
-Example: Detects shifts like “confident → neutral → excited” through audio cues.
-🔍 3. Semantic Video Search
-Find exactly where something was said.
-Using vector embeddings stored in MongoDB Atlas, SubSync allows you to search conceptually rather than literally.
-Example: Search “neural networks” and jump to every section where the lecturer discussed related concepts like “backpropagation” or “perceptrons.”
-(Vector DB can also be configured with Supabase or other embedding stores.)
-🧩 4. Study Mode — Cognitive Video Mapping
-An innovative learning feature that generates a semantic map of the video, combining:
-Transcript-based summary (LLM — Mistral 7B fine-tuned)
-OCR-based visual context from key frames (selective-frame extraction algorithm)
-NLP-driven tag extraction for topic labeling
-All this merges into a textual map — a bird’s-eye view of the entire video that helps you understand the structure, key ideas, and flow at a glance.
-Imagine opening a 2-hour lecture and instantly seeing a mini “mind map” of everything it contains.
-🧰 Tech Stack
-Layer	Technology
-Frontend	HTML / CSS / JS (Flask templates)
-Backend	Flask (Python)
-Speech Recognition	OpenAI Whisper (fine-tuned)
-Emotion Detection	Logistic Regression (custom ML model)
-Semantic Search	MongoDB Atlas Vector Search / Supabase embeddings
-Summarization	Mistral 7B fine-tuned LLM
-Visual Context Extraction	OCR on selected key frames
-Other AI Features	OpenAI Vision API, WhisperAI
-🧪 System Workflow
-Upload Video → Extract audio → Generate transcript (Whisper).
-Emotion Detection → Logistic Regression model analyzes tone.
-Embedding Generation → Convert transcript segments into vectors (for search).
-Semantic Search Layer → Query embeddings via MongoDB vector index.
-OCR & Visual Context → Extract key frames → Run OCR → Merge with transcript.
-Summary Generation → LLM (Mistral 7B) synthesizes context + visuals.
-Cognitive Map → Generate tags + textual map + downloadable summary.
-🧱 Architecture Overview
-┌──────────────────────────┐
-│        Frontend          │
-│  Upload video, search UI │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│         Flask API        │
-│ Speech → Emotion → Vector│
-│ OCR → LLM Summary → Map  │
-└────────────┬─────────────┘
-             │
-             ▼
-┌──────────────────────────┐
-│       MongoDB Atlas      │
-│ Vector + Metadata + User │
-└──────────────────────────┘
-📦 Installation
-git clone https://github.com/<your-username>/subsync.git
-cd subsync
+
+# SubSyncAI 🧠
+### The Emotionally Intelligent AI Subtitle & Video Insight Engine
+
+> 🏆 1st Place — Exypnos 2025 Hackathon (Auto Caption Challenge) | La Martiniere for Boys
+
+SubSync turns any video into an interactive learning companion. Built way beyond the hackathon brief — it doesn't just caption, it understands: transcribing speech, detecting emotion, semantically searching content, and generating cognitive maps of entire lectures.
+
+---
+
+## Why SubSync?
+
+Most captioning tools stop at text. SubSync asks a deeper question: *what if your video could think?*
+
+A student opens a 2-hour lecture. Instead of scrubbing through it blindly, SubSync gives them a mind map of everything it contains, lets them search *concepts* not just keywords, and tells them when the lecturer was most engaged. That's the difference.
+
+---
+
+## Features
+
+### 🎬 Auto-Subtitle Generation
+Upload `.mp4`, `.webm`, or `.mov` and receive:
+- Accurate subtitles with timestamps (≤12% WER on clear audio)
+- Downloadable `.srt` file
+- Full context-preserving transcript
+
+Powered by a **fine-tuned OpenAI Whisper** model trained for precision speech recognition.
+
+### 💓 Emotional Analysis
+A custom-trained **Logistic Regression model** detects the speaker's emotional tone in real time — tracking shifts like `confident → neutral → excited` through audio cues. SubSync doesn't just hear what was said. It understands how it was said.
+
+### 🔍 Semantic Video Search
+Search *concepts*, not keywords. Using **vector embeddings stored in MongoDB Atlas**, SubSync finds every moment in a video related to your query — even if the exact words were never used.
+
+> Search "neural networks" → jumps to every segment discussing backpropagation, perceptrons, and gradient descent.
+
+(Compatible with Supabase or any embedding store.)
+
+### 🧩 Study Mode — Cognitive Video Mapping
+The flagship feature. SubSync generates a full semantic map of any video by combining:
+- **Transcript summarisation** via fine-tuned Mistral 7B LLM
+- **Visual context extraction** via OCR on selectively sampled key frames
+- **NLP-driven topic tagging** for structured labelling
+
+The result: a bird's-eye view of any video's structure, ideas, and flow — generated instantly.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | HTML / CSS / JS (Flask templates) |
+| Backend | Flask (Python) |
+| Speech Recognition | OpenAI Whisper (fine-tuned) |
+| Emotion Detection | Logistic Regression (custom trained) |
+| Semantic Search | MongoDB Atlas Vector Search |
+| Summarisation | Mistral 7B (fine-tuned) |
+| Visual Context | OCR on selective key frames |
+| Additional AI | OpenAI Vision API |
+
+---
+
+## System Workflow
+
+Upload Video
+→ Extract audio → Whisper transcription
+→ Logistic Regression emotion analysis
+→ Segment embeddings → MongoDB vector index
+→ Key frame extraction → OCR → visual context
+→ Mistral 7B synthesis → cognitive map + summary
+
+---
+
+## Installation
+```bash
+git clone https://github.com/ayaanhussainsyed/SubSyncAI.git
+cd SubSyncAI
 pip install -r requirements.txt
 python app.py
-Ensure your .env contains:
-OPENAI_API_KEY=<your OpenAI key>
-Then open:
-http://127.0.0.1:7746/
-📊 Example Use Cases
-Students — auto-generate subtitles + summaries for lectures
-Educators — analyze teaching tone & engagement
-Researchers — semantic video search across hours of data
-Content creators — auto-caption emotionally aware videos
-🏆 Achievements
-Built for Hackathon 2025 — Auto Caption Challenge
-🥇 Winner (1st Place) for Innovation & Emotional AI Integration.
-💫 Vision
-SubSync isn’t just a subtitle generator — it’s a step toward cognitive media comprehension, bridging human emotion, language, and visual context into a unified understanding of video content.
-✨ Author
-Ayaan Hussain
-AI/ML Researcher • Data Scientist • Deep Learning Enthusiast
+```
+
+Add your API key to `.env`:
+OPENAI_API_KEY=your_key_here 
+
+Then open: `http://127.0.0.1:7746/`
+
+---
+
+## Who is this for?
+
+- **Students** — auto-summarise and semantically search any lecture
+- **Educators** — analyse teaching tone and student engagement signals
+- **Researchers** — search hours of recorded content by concept
+- **Content creators** — emotionally aware auto-captioning
+
+---
+
+## Author
+
+**Syed Ayaan Hussain**  
+AI/ML Researcher · Deep Learning · Information Retrieval  · Agentic RAG
+[GitHub](https://github.com/ayaanhussainsyed) · [LinkedIn]([https://linkedin.com/in/your-profile](https://www.linkedin.com/in/syed-hussain-b6a95a36b/))
